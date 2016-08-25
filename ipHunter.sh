@@ -66,18 +66,24 @@ updateData() {
 
 
 # Get options
+has_CC=false
 while getopts "uhc:r:" arg
 do
     case $arg in
         h ) usage ;;
         u ) updateData ;;
-        c ) CC=$OPTARG ;;
+        c ) CC=$OPTARG; has_CC=true; echo $has_CC ;;
         ? ) 
             echo "
  [*] Uknown argument"
             usage ;;
     esac
 done
+
+if [ "$has_CC" = false ]; then 
+    echo " [*] Missing country code, use '-c [Country code]' to indicate";
+    usage
+fi
 
 # Init varibles
 CC=`echo $CC | tr '[:lower:]' '[:upper:]'`
