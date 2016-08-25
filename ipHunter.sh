@@ -1,6 +1,21 @@
 #!/bin/bash
 # author: nullPoint3r
 
+echo '
+ ______  _______   __    __                       __                         
+|      \|       \ |  \  |  \                     |  \                        
+ \$$$$$$| $$$$$$$\| $$  | $$ __    __  _______  _| $$_     ______    ______  
+  | $$  | $$__/ $$| $$__| $$|  \  |  \|       \|   $$ \   /      \  /      \ 
+  | $$  | $$    $$| $$    $$| $$  | $$| $$$$$$$\\$$$$$$  |  $$$$$$\|  $$$$$$\
+  | $$  | $$$$$$$ | $$$$$$$$| $$  | $$| $$  | $$ | $$ __ | $$    $$| $$   \$$
+ _| $$_ | $$      | $$  | $$| $$__/ $$| $$  | $$ | $$|  \| $$$$$$$$| $$      
+|   $$ \| $$      | $$  | $$ \$$    $$| $$  | $$  \$$  $$ \$$     \| $$      
+ \$$$$$$ \$$       \$$   \$$  \$$$$$$  \$$   \$$   \$$$$   \$$$$$$$ \$$      
+                                                                             
+                                                                             
+                                                     by: nullPoint3r                        
+'
+
 # Regional Internet Registry URL 
 AFRINIC=http://ftp.afrinic.net/stats/afrinic/delegated-afrinic-latest     #Africa Region
 APNIC=http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest       #Asia/Pacific Region
@@ -75,6 +90,10 @@ while(($line<=$count));do
         let line++
 done
 rm  ip_tmp.txt
+
+usage() {
+        echo "***************  "
+}
 
 updateData() {
         wget AFRINIC -O $DATA_DIR/AFRINIC_latest.txt.tmp
