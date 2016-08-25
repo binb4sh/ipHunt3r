@@ -2,18 +2,19 @@
 # author: nullPoint3r
 
 echo '
- ______  _______   __    __                       __                         
-|      \|       \ |  \  |  \                     |  \                        
- \$$$$$$| $$$$$$$\| $$  | $$ __    __  _______  _| $$_     ______    ______  
-  | $$  | $$__/ $$| $$__| $$|  \  |  \|       \|   $$ \   /      \  /      \ 
-  | $$  | $$    $$| $$    $$| $$  | $$| $$$$$$$\\$$$$$$  |  $$$$$$\|  $$$$$$\
-  | $$  | $$$$$$$ | $$$$$$$$| $$  | $$| $$  | $$ | $$ __ | $$    $$| $$   \$$
- _| $$_ | $$      | $$  | $$| $$__/ $$| $$  | $$ | $$|  \| $$$$$$$$| $$      
-|   $$ \| $$      | $$  | $$ \$$    $$| $$  | $$  \$$  $$ \$$     \| $$      
- \$$$$$$ \$$       \$$   \$$  \$$$$$$  \$$   \$$   \$$$$   \$$$$$$$ \$$      
-                                                                             
-                                                                             
-                                                     by: nullPoint3r                        
+ ______  _______   __    __                        __       ______            
+/      |/       \ /  |  /  |                      /  |     /      \           
+$$$$$$/ $$$$$$$  |$$ |  $$ | __    __  _______   _$$ |_   /$$$$$$  |  ______  
+  $$ |  $$ |__$$ |$$ |__$$ |/  |  /  |/       \ / $$   |  $$ ___$$ | /      \ 
+  $$ |  $$    $$/ $$    $$ |$$ |  $$ |$$$$$$$  |$$$$$$/     /   $$< /$$$$$$  |
+  $$ |  $$$$$$$/  $$$$$$$$ |$$ |  $$ |$$ |  $$ |  $$ | __  _$$$$$  |$$ |  $$/ 
+ _$$ |_ $$ |      $$ |  $$ |$$ \__$$ |$$ |  $$ |  $$ |/  |/  \__$$ |$$ |      
+/ $$   |$$ |      $$ |  $$ |$$    $$/ $$ |  $$ |  $$  $$/ $$    $$/ $$ |      
+$$$$$$/ $$/       $$/   $$/  $$$$$$/  $$/   $$/    $$$$/   $$$$$$/  $$/       
+                                                                              
+                                                                              
+                                                             By nullPoint3r                 
+                      
 '
 
 # Regional Internet Registry URL 
@@ -35,7 +36,7 @@ CC=CN
 
 usage() {
     echo -n "
- Usage: sh ipHunter [OPTION]... 
+ Usage: sh ipHunt3r [OPTION]... 
 
  Options:
     -c     Country code, see \"doc/List_fo_country_codes.doc\"
@@ -43,7 +44,7 @@ usage() {
     -u     Upadte regional internet registry data
     -v     Verbose
  
- Example: sh ipHunter -c CN 
+ Example: sh ipHunt3r -c CN 
 
 "
     exit
@@ -126,7 +127,7 @@ esac
 
 if [[ ! -f $DATAFILE ]]; then
     echo "[*] File not found: $DATAFILE "
-    echo "[*] Please update data with: 'sh ipHunter.sh -u'
+    echo "[*] Please update data with: 'sh ipHunt3r.sh -u'
     "
     exit
 fi
