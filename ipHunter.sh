@@ -1,4 +1,12 @@
 #!/bin/bash
+# author: nullPoint3r
+
+AFRINIC=http://ftp.afrinic.net/stats/afrinic/delegated-afrinic-latest     #Africa Region
+APNIC=http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest       #Asia/Pacific Region
+ARIN=http://ftp.arin.net/pub/stats/arin/delegated-arin-extended-latest    #Canada, USA, and some Caribbean Islands
+LACNIC=http://ftp.lacnic.net/pub/stats/lacnic/delegated-lacnic-latest     #Latin America and some Caribbean Islands
+RIPENCC=http://ftp.ripe.net/pub/stats/ripencc/delegated-ripencc-latest    #Europe, the Middle East, and Central Asia
+
 
 # Get file
 wget http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest
