@@ -48,18 +48,18 @@ usage() {
 }
 
 updateData() {
-        wget AFRINIC -O $DATA_DIR/AFRINIC_latest.txt.tmp
-        mv $DATA_DIR/AFRINIC_latest.txt.tmp $DATA_DIR/AFRINIC_latest.txt
-        wget APNIC -O $DATA_DIR/APNIC_latest.txt.tmp
-        mv $DATA_DIR/APNIC_latest.txt.tmp $DATA_DIR/APNIC_latest.txt
-        wget ARIN -O $DATA_DIR/ARIN_latest.txt.tmp
-        mv $DATA_DIR/ARIN_latest.txt.tmp $DATA_DIR/ARIN_latest.txt
-        wget LACNIC -O $DATA_DIR/LACNIC_latest.txt.tpm
-        mv $DATA_DIR/LACNIC_latest.txt.tpm $DATA_DIR/LACNIC_latest.txt
-        wget RIPENCC -O $DATA_DIR/RIPENCC_latest.txt.tmp
-        mv $DATA_DIR/RIPENCC_latest.txt.tmp $DATA_DIR/RIPENCC_latest.txt
-        echo "All data is up-to-date!"
-        exit
+    wget $AFRINIC -O $DATA_DIR/AFRINIC_latest.txt.tmp
+    mv $DATA_DIR/AFRINIC_latest.txt.tmp $DATA_DIR/AFRINIC_latest.txt
+    wget $APNIC -O $DATA_DIR/APNIC_latest.txt.tmp
+    mv $DATA_DIR/APNIC_latest.txt.tmp $DATA_DIR/APNIC_latest.txt
+    wget $ARIN -O $DATA_DIR/ARIN_latest.txt.tmp
+    mv $DATA_DIR/ARIN_latest.txt.tmp $DATA_DIR/ARIN_latest.txt
+    wget $LACNIC -O $DATA_DIR/LACNIC_latest.txt.tpm
+    mv $DATA_DIR/LACNIC_latest.txt.tpm $DATA_DIR/LACNIC_latest.txt
+    wget $RIPENCC -O $DATA_DIR/RIPENCC_latest.txt.tmp
+    mv $DATA_DIR/RIPENCC_latest.txt.tmp $DATA_DIR/RIPENCC_latest.txt
+    echo "All data is up-to-date!"
+    exit
 }
 
 ###############################################################################
