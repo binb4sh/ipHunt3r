@@ -1,12 +1,17 @@
 #!/bin/bash
 # author: nullPoint3r
 
+# Regional Internet Registry URL 
 AFRINIC=http://ftp.afrinic.net/stats/afrinic/delegated-afrinic-latest     #Africa Region
 APNIC=http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest       #Asia/Pacific Region
 ARIN=http://ftp.arin.net/pub/stats/arin/delegated-arin-extended-latest    #Canada, USA, and some Caribbean Islands
 LACNIC=http://ftp.lacnic.net/pub/stats/lacnic/delegated-lacnic-latest     #Latin America and some Caribbean Islands
 RIPENCC=http://ftp.ripe.net/pub/stats/ripencc/delegated-ripencc-latest    #Europe, the Middle East, and Central Asia
 
+#
+CURRENT_DIR=`dirname $0`
+REGISTRY=Apnic
+CC=CN
 
 # Get file
 wget http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest
@@ -44,3 +49,17 @@ while(($line<=$count));do
         let line++
 done
 rm -rf IP.txt $FILE
+
+
+updateData() {
+        wget AFRINIC -O CURRENT_DIR/data/AFRINIC_latest.txt.tmp
+        mv CURRENT_DIR/data/AFRINIC_latest.txt.tmp CURRENT_DIR/data/AFRINIC_latest.txt
+        wget APNIC -O CURRENT_DIR/data/APNIC_latest.txt.tmp
+        mv CURRENT_DIR/data/APNIC_latest.txt.tmp CURRENT_DIR/data/APNIC_latest.txt
+        wget ARIN -O CURRENT_DIR/data/ARIN_latest.txt.tmp
+        mv CURRENT_DIR/data/ARIN_latest.txt.tmp CURRENT_DIR/data/ARIN_latest.txt
+        wget LACNIC -O CURRENT_DIR/data/LACNIC_latest.txt.tpm
+        mv CURRENT_DIR/data/LACNIC_latest.txt.tpm CURRENT_DIR/data/LACNIC_latest.txt
+        wget RIPENCC -O CURRENT_DIR/data/RIPENCC_latest.txt.tmp
+        mv CURRENT_DIR/data/RIPENCC_latest.txt.tmp CURRENT_DIR/data/RIPENCC_latest.txt
+}
