@@ -69,7 +69,7 @@ updateData() {
 
 # Get options
 has_CC=false
-while getopts "uhc:r:" arg
+while getopts "uhvc:r:" arg
 do
     case $arg in
         h ) usage ;;
