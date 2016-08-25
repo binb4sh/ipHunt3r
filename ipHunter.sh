@@ -132,8 +132,10 @@ esac
 # filter CC IPs
 echo "Country code is $CC"
 echo "Registry is '$REGISTRY'"
-echo "Start filter IPs ..."
-grep "$REGISTRY|$CC|ipv4" $FILE | awk -F "|" '{print $4,$5}' > ip_tmp.txt
+echo "Will filter IPs from $DATAFILE"
+echo "In Progress ..."
+
+grep "$REGISTRY|$CC|ipv4" $DATAFILE | awk -F "|" '{print $4,$5}' > ip_tmp.txt
 
 count=`cat ip_tmp.txt | wc -l`
 line=1
