@@ -92,7 +92,8 @@ done
 rm  ip_tmp.txt
 
 usage() {
-        echo "***************  "
+        echo "Usage: sh ipHunter.sh [country code]"
+        echo "Example: sh ipHunter.sh CN"
 }
 
 updateData() {
