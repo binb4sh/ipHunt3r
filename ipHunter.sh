@@ -10,21 +10,28 @@ RIPENCC=http://ftp.ripe.net/pub/stats/ripencc/delegated-ripencc-latest    #Europ
 
 #
 CURRENT_DIR=`dirname $0`
-REGISTRY=Apnic
+REGISTRY=apnic
 CC=CN
 
 # Get file
-wget http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest
-FILE=delegated-apnic-latest
+DATAFILE=$CURRENT_DIR/data/AFRINIC_latest.txt
+case $REGISTRY in
+        apnic ) DATAFILE=$CURRENT_DIR/data/AFRINIC_latest.txt ;;
+        afrinic ) DATAFILE=$CURRENT_DIR/data/AFRINIC_latest.txt ;;
+        arin ) DATAFILE=$CURRENT_DIR/data/AFRINIC_latest.txt ;;
+        lacnic ) DATAFILE=$CURRENT_DIR/data/AFRINIC_latest.txt ;;
+        ripencc ) DATAFILE=$CURRENT_DIR/data/AFRINIC_latest.txt ;;
+        * ) echo "INVALID REGISTRY" ;;
+esac
 
-# filter CN ips
-grep "apnic|CN|ipv4" $FILE | awk -F "|" '{print $4,$5}' > IP.txt
+# filter CC IPs
+grep "$REGISTRY|$CC|ipv4" $FILE | awk -F "|" '{print $4,$5}' > ip_tmp.txt
 
-count=`cat IP.txt | wc -l`
+count=`cat ip_tmp.txt | wc -l`
 line=1
 while(($line<=$count));do
-        IP=`sed -n ${line}p IP.txt | awk '{print $1}'`
-        HOST=`sed -n ${line}p IP.txt | awk '{print $2}'`
+        IP=`sed -n ${line}p ip_tmp.txt | awk '{print $1}'`
+        HOST=`sed -n ${line}p ip_tmp.txt | awk '{print $2}'`
         NETMASK=0
         case $HOST in
                 256 ) NETMASK=24 ;;
@@ -45,21 +52,20 @@ while(($line<=$count));do
                 * ) echo "INVALID NUMBER" ;;
         esac
         echo $IP/$NETMASK
-        echo $IP/$NETMASK >> IP.SH
+        echo $IP/$NETMASK >> results.txt
         let line++
 done
-rm -rf IP.txt $FILE
-
+rm  ip_tmp.txt
 
 updateData() {
-        wget AFRINIC -O CURRENT_DIR/data/AFRINIC_latest.txt.tmp
-        mv CURRENT_DIR/data/AFRINIC_latest.txt.tmp CURRENT_DIR/data/AFRINIC_latest.txt
-        wget APNIC -O CURRENT_DIR/data/APNIC_latest.txt.tmp
-        mv CURRENT_DIR/data/APNIC_latest.txt.tmp CURRENT_DIR/data/APNIC_latest.txt
-        wget ARIN -O CURRENT_DIR/data/ARIN_latest.txt.tmp
-        mv CURRENT_DIR/data/ARIN_latest.txt.tmp CURRENT_DIR/data/ARIN_latest.txt
-        wget LACNIC -O CURRENT_DIR/data/LACNIC_latest.txt.tpm
-        mv CURRENT_DIR/data/LACNIC_latest.txt.tpm CURRENT_DIR/data/LACNIC_latest.txt
-        wget RIPENCC -O CURRENT_DIR/data/RIPENCC_latest.txt.tmp
-        mv CURRENT_DIR/data/RIPENCC_latest.txt.tmp CURRENT_DIR/data/RIPENCC_latest.txt
+        wget AFRINIC -O $CURRENT_DIR/data/AFRINIC_latest.txt.tmp
+        mv $CURRENT_DIR/data/AFRINIC_latest.txt.tmp $CURRENT_DIR/data/AFRINIC_latest.txt
+        wget APNIC -O $CURRENT_DIR/data/APNIC_latest.txt.tmp
+        mv $CURRENT_DIR/data/APNIC_latest.txt.tmp $CURRENT_DIR/data/APNIC_latest.txt
+        wget ARIN -O $CURRENT_DIR/data/ARIN_latest.txt.tmp
+        mv $CURRENT_DIR/data/ARIN_latest.txt.tmp $CURRENT_DIR/data/ARIN_latest.txt
+        wget LACNIC -O $CURRENT_DIR/data/LACNIC_latest.txt.tpm
+        mv $CURRENT_DIR/data/LACNIC_latest.txt.tpm $CURRENT_DIR/data/LACNIC_latest.txt
+        wget RIPENCC -O $CURRENT_DIR/data/RIPENCC_latest.txt.tmp
+        mv $CURRENT_DIR/data/RIPENCC_latest.txt.tmp $CURRENT_DIR/data/RIPENCC_latest.txt
 }
