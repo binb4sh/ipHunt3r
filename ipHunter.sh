@@ -10,17 +10,36 @@ RIPENCC=http://ftp.ripe.net/pub/stats/ripencc/delegated-ripencc-latest    #Europ
 
 #
 CURRENT_DIR=`dirname $0`
+DATA_DIR=$CURRENT_DIR/data
+REGION_DIR=$CURRENT_DIR/region
 REGISTRY=apnic
 CC=CN
 
+if [[ $#>0 ]]; then
+        CC=$1
+        if [[ grep $CC $REGION_DIR/RIPENCC.txt ]]; then
+                REGISTRY=ripencc
+        elif [[ grep $CC $REGION_DIR/APNIC.txt ]]; then
+                REGISTRY=apnic
+        elif [[ grep $CC $REGION_DIR/ARIN.txt ]]; then
+                REGISTRY=arin
+        elif [[ grep $CC $REGION_DIR/LACNIC.txt ]]; then
+                REGISTRY=lacnic
+        else [[ grep $CC $REGION_DIR/AFRINIC.txt ]]; then
+                REGISTRY=afrinic
+        else
+                echo "UNKONWN COUNTRY!"
+        fi
+fi
+
 # Get file
-DATAFILE=$CURRENT_DIR/data/AFRINIC_latest.txt
+DATAFILE=$DATA_DIR/AFRINIC_latest.txt
 case $REGISTRY in
-        apnic ) DATAFILE=$CURRENT_DIR/data/AFRINIC_latest.txt ;;
-        afrinic ) DATAFILE=$CURRENT_DIR/data/AFRINIC_latest.txt ;;
-        arin ) DATAFILE=$CURRENT_DIR/data/AFRINIC_latest.txt ;;
-        lacnic ) DATAFILE=$CURRENT_DIR/data/AFRINIC_latest.txt ;;
-        ripencc ) DATAFILE=$CURRENT_DIR/data/AFRINIC_latest.txt ;;
+        apnic ) DATAFILE=$DATA_DIR/AFRINIC_latest.txt ;;
+        afrinic ) DATAFILE=$DATA_DIR/AFRINIC_latest.txt ;;
+        arin ) DATAFILE=$DATA_DIR/AFRINIC_latest.txt ;;
+        lacnic ) DATAFILE=$DATA_DIR/AFRINIC_latest.txt ;;
+        ripencc ) DATAFILE=$DATA_DIR/AFRINIC_latest.txt ;;
         * ) echo "INVALID REGISTRY" ;;
 esac
 
@@ -58,14 +77,14 @@ done
 rm  ip_tmp.txt
 
 updateData() {
-        wget AFRINIC -O $CURRENT_DIR/data/AFRINIC_latest.txt.tmp
-        mv $CURRENT_DIR/data/AFRINIC_latest.txt.tmp $CURRENT_DIR/data/AFRINIC_latest.txt
-        wget APNIC -O $CURRENT_DIR/data/APNIC_latest.txt.tmp
-        mv $CURRENT_DIR/data/APNIC_latest.txt.tmp $CURRENT_DIR/data/APNIC_latest.txt
-        wget ARIN -O $CURRENT_DIR/data/ARIN_latest.txt.tmp
-        mv $CURRENT_DIR/data/ARIN_latest.txt.tmp $CURRENT_DIR/data/ARIN_latest.txt
-        wget LACNIC -O $CURRENT_DIR/data/LACNIC_latest.txt.tpm
-        mv $CURRENT_DIR/data/LACNIC_latest.txt.tpm $CURRENT_DIR/data/LACNIC_latest.txt
-        wget RIPENCC -O $CURRENT_DIR/data/RIPENCC_latest.txt.tmp
-        mv $CURRENT_DIR/data/RIPENCC_latest.txt.tmp $CURRENT_DIR/data/RIPENCC_latest.txt
+        wget AFRINIC -O $DATA_DIR/AFRINIC_latest.txt.tmp
+        mv $DATA_DIR/AFRINIC_latest.txt.tmp $DATA_DIR/AFRINIC_latest.txt
+        wget APNIC -O $DATA_DIR/APNIC_latest.txt.tmp
+        mv $DATA_DIR/APNIC_latest.txt.tmp $DATA_DIR/APNIC_latest.txt
+        wget ARIN -O $DATA_DIR/ARIN_latest.txt.tmp
+        mv $DATA_DIR/ARIN_latest.txt.tmp $DATA_DIR/ARIN_latest.txt
+        wget LACNIC -O $DATA_DIR/LACNIC_latest.txt.tpm
+        mv $DATA_DIR/LACNIC_latest.txt.tpm $DATA_DIR/LACNIC_latest.txt
+        wget RIPENCC -O $DATA_DIR/RIPENCC_latest.txt.tmp
+        mv $DATA_DIR/RIPENCC_latest.txt.tmp $DATA_DIR/RIPENCC_latest.txt
 }
