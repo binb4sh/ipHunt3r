@@ -20,17 +20,18 @@ Grab all the ip addresses of  any country's Internet, any regional Internet or t
  Usage: sh ipHunter [OPTION]... 
 
  Options:
-    -c     Country code, see \"doc/List_fo_country_codes.doc\"
+    -c     Country code, see "doc/List_fo_country_codes.csv"
     -h     Display this help and exit
     -u     Upadte regional internet registry data
-    -v     Verbose<p>
-```
+    -v     Verbose
 
-   First run, i recommend you update the data:
-```
+ First run, i recommend you update the data:
     sh ipHunter -u
 ```
 # Example
 ```
  sh ipHunter -v -c CN
 ```
+# Version feature
+    V1.0 
+    Grab all the ip addresses of any country's Internet
