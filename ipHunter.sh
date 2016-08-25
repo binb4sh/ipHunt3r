@@ -114,20 +114,22 @@ fi
 
 # Get file
 DATAFILE=$DATA_DIR/AFRINIC_latest.txt
+
+case $REGISTRY in
+        apnic ) DATAFILE=$DATA_DIR/APNIC_latest.txt ;;
+        afrinic ) DATAFILE=$DATA_DIR/AFRINIC_latest.txt ;;
+        arin ) DATAFILE=$DATA_DIR/ARIN_latest.txt ;;
+        lacnic ) DATAFILE=$DATA_DIR/LACNIC_latest.txt ;;
+        ripencc ) DATAFILE=$DATA_DIR/RIPENCC_latest.txt ;;
+        * ) echo "[*] Invalid registry"; exit ;;
+esac
+
 if [[ ! -f $DATAFILE ]]; then
     echo "[*] File not found: $DATAFILE "
     echo "[*] Please update data with: 'sh ipHunter.sh -u'
     "
     exit
 fi
-case $REGISTRY in
-        apnic ) DATAFILE=$DATA_DIR/AFRINIC_latest.txt ;;
-        afrinic ) DATAFILE=$DATA_DIR/AFRINIC_latest.txt ;;
-        arin ) DATAFILE=$DATA_DIR/AFRINIC_latest.txt ;;
-        lacnic ) DATAFILE=$DATA_DIR/AFRINIC_latest.txt ;;
-        ripencc ) DATAFILE=$DATA_DIR/AFRINIC_latest.txt ;;
-        * ) echo "[*] Invalid registry"; exit ;;
-esac
 
 # filter CC IPs
 echo "Country code is $CC"
@@ -167,4 +169,4 @@ while(($line<=$count));do
     echo $IP/$NETMASK >> results.txt
     let line++
 done
-rm  ip_tmp.txt
+#rm  ip_tmp.txt
