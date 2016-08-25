@@ -1,23 +1,23 @@
-# IPHunter
+# IPHunt3r
 ```
- ______  _______   __    __                       __                         
-|      \|       \ |  \  |  \                     |  \                        
- \$$$$$$| $$$$$$$\| $$  | $$ __    __  _______  _| $$_     ______    ______  
-  | $$  | $$__/ $$| $$__| $$|  \  |  \|       \|   $$ \   /      \  /      \ 
-  | $$  | $$    $$| $$    $$| $$  | $$| $$$$$$$\\$$$$$$  |  $$$$$$\|  $$$$$$\
-  | $$  | $$$$$$$ | $$$$$$$$| $$  | $$| $$  | $$ | $$ __ | $$    $$| $$   \$$
- _| $$_ | $$      | $$  | $$| $$__/ $$| $$  | $$ | $$|  \| $$$$$$$$| $$      
-|   $$ \| $$      | $$  | $$ \$$    $$| $$  | $$  \$$  $$ \$$     \| $$      
- \$$$$$$ \$$       \$$   \$$  \$$$$$$  \$$   \$$   \$$$$   \$$$$$$$ \$$      
-                                                                             
-                                                                             
-                                                     by: nullPoint3r 
-                                                     
+ ______  _______   __    __                        __       ______            
+/      |/       \ /  |  /  |                      /  |     /      \           
+$$$$$$/ $$$$$$$  |$$ |  $$ | __    __  _______   _$$ |_   /$$$$$$  |  ______  
+  $$ |  $$ |__$$ |$$ |__$$ |/  |  /  |/       \ / $$   |  $$ ___$$ | /      \ 
+  $$ |  $$    $$/ $$    $$ |$$ |  $$ |$$$$$$$  |$$$$$$/     /   $$< /$$$$$$  |
+  $$ |  $$$$$$$/  $$$$$$$$ |$$ |  $$ |$$ |  $$ |  $$ | __  _$$$$$  |$$ |  $$/ 
+ _$$ |_ $$ |      $$ |  $$ |$$ \__$$ |$$ |  $$ |  $$ |/  |/  \__$$ |$$ |      
+/ $$   |$$ |      $$ |  $$ |$$    $$/ $$ |  $$ |  $$  $$/ $$    $$/ $$ |      
+$$$$$$/ $$/       $$/   $$/  $$$$$$/  $$/   $$/    $$$$/   $$$$$$/  $$/       
+                                                                              
+                                                                              
+                                                             By nullPoint3r                 
+                      
 ```
 Grab all the ip addresses of  any country's Internet, any regional Internet or the entire Internet !
 # Usage
 ```
- Usage: sh ipHunter [OPTION]... 
+ Usage: sh ipHunt3r [OPTION]... 
 
  Options:
     -c     Country code, see "doc/List_fo_country_codes.csv"
@@ -26,11 +26,11 @@ Grab all the ip addresses of  any country's Internet, any regional Internet or t
     -v     Verbose
 
  First run, i recommend you update the data:
-    sh ipHunter -u
+    sh ipHunt3r -u
 ```
 # Example
 ```
- sh ipHunter -v -c CN
+ sh ipHunt3r -v -c CN
 ```
 # Version feature
     V1.0 
