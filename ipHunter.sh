@@ -74,7 +74,7 @@ do
     case $arg in
         h ) usage ;;
         u ) updateData ;;
-        c ) CC=$OPTARG; has_CC=true; echo $has_CC ;;
+        c ) CC=$OPTARG; has_CC=true ;;
         v ) VERBOSE=true ;;
         ? ) 
             echo "
