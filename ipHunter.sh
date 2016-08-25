@@ -30,22 +30,22 @@ REGION_DIR=$CURRENT_DIR/region
 REGISTRY=apnic
 CC=CN
 
-if [[ $#>0 ]]; then
-        CC=$1
-        if [[ grep $CC $REGION_DIR/RIPENCC.txt ]]; then
-                REGISTRY=ripencc
-        elif [[ grep $CC $REGION_DIR/APNIC.txt ]]; then
-                REGISTRY=apnic
-        elif [[ grep $CC $REGION_DIR/ARIN.txt ]]; then
-                REGISTRY=arin
-        elif [[ grep $CC $REGION_DIR/LACNIC.txt ]]; then
-                REGISTRY=lacnic
-        else [[ grep $CC $REGION_DIR/AFRINIC.txt ]]; then
-                REGISTRY=afrinic
-        else
-                echo "UNKONWN COUNTRY!"
-        fi
+getArgs
+
+if [[ grep $CC $REGION_DIR/RIPENCC.txt ]]; then
+        REGISTRY=ripencc
+elif [[ grep $CC $REGION_DIR/APNIC.txt ]]; then
+        REGISTRY=apnic
+elif [[ grep $CC $REGION_DIR/ARIN.txt ]]; then
+        REGISTRY=arin
+elif [[ grep $CC $REGION_DIR/LACNIC.txt ]]; then
+        REGISTRY=lacnic
+else [[ grep $CC $REGION_DIR/AFRINIC.txt ]]; then
+        REGISTRY=afrinic
+else
+        echo "UNKONWN COUNTRY!"
 fi
+
 
 # Get file
 DATAFILE=$DATA_DIR/AFRINIC_latest.txt
@@ -92,8 +92,33 @@ done
 rm  ip_tmp.txt
 
 usage() {
-        echo "Usage: sh ipHunter.sh [country code]"
-        echo "Example: sh ipHunter.sh CN"
+    echo -n "sh ipHunter [OPTION]... 
+
+    Options:
+    -c     Country code, see \"doc/List_fo_country_codes.doc\"
+    -h     Display this help and exit
+    -v     Output version information and exit
+    -u     Upadte regional internet registry data
+"
+}
+
+getArgs() {
+    while [[ getopts "uhc:r:" arg ]]; do
+        case $arg in
+            h ) usage ;;
+            u ) updateData ;;
+            c ) CC=$OPTARG ;;
+            ? ) 
+                echo "Uknown argument: -$OPTARG"
+                usage ;;
+            : ) 
+                echo "Missing option argument for -$OPTARG"
+                usage ;;
+            * ) 
+                echo "Unimplemented option: -$OPTARG"
+                usage ;;
+        esac
+    done
 }
 
 updateData() {
@@ -107,4 +132,6 @@ updateData() {
         mv $DATA_DIR/LACNIC_latest.txt.tpm $DATA_DIR/LACNIC_latest.txt
         wget RIPENCC -O $DATA_DIR/RIPENCC_latest.txt.tmp
         mv $DATA_DIR/RIPENCC_latest.txt.tmp $DATA_DIR/RIPENCC_latest.txt
+        echo "All data is up-to-date!"
+        exit
 }
