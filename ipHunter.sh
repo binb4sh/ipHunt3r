@@ -28,6 +28,7 @@ CURRENT_DIR=`dirname $0`
 DATA_DIR=$CURRENT_DIR/data
 REGION_DIR=$CURRENT_DIR/region
 REGISTRY=apnic
+VERBOSE=false
 CC=CN
 
 ###############################################################################
@@ -40,6 +41,7 @@ usage() {
     -c     Country code, see \"doc/List_fo_country_codes.doc\"
     -h     Display this help and exit
     -u     Upadte regional internet registry data
+    -v     Verbose
  
  Example: sh ipHunter -c CN 
 
@@ -73,6 +75,7 @@ do
         h ) usage ;;
         u ) updateData ;;
         c ) CC=$OPTARG; has_CC=true; echo $has_CC ;;
+        v ) VERBOSE=true ;;
         ? ) 
             echo "
  [*] Uknown argument"
@@ -127,34 +130,37 @@ case $REGISTRY in
 esac
 
 # filter CC IPs
+echo "In progress ....."
 grep "$REGISTRY|$CC|ipv4" $FILE | awk -F "|" '{print $4,$5}' > ip_tmp.txt
 
 count=`cat ip_tmp.txt | wc -l`
 line=1
 while(($line<=$count));do
-        IP=`sed -n ${line}p ip_tmp.txt | awk '{print $1}'`
-        HOST=`sed -n ${line}p ip_tmp.txt | awk '{print $2}'`
-        NETMASK=0
-        case $HOST in
-                256 ) NETMASK=24 ;;
-                512 ) NETMASK=23 ;;
-                1024 ) NETMASK=22 ;;
-                2048 ) NETMASK=21 ;;
-                4096 ) NETMASK=20 ;;
-                8192 ) NETMASK=19 ;;
-                16384 ) NETMASK=18 ;;
-                32768 ) NETMASK=17 ;;
-                65536 ) NETMASK=16 ;;
-                131072 ) NETMASK=15 ;;
-                262144 ) NETMASK=14 ;;
-                524288 ) NETMASK=13 ;;
-                1048576 ) NETMASK=12 ;;
-                2097152 ) NETMASK=11 ;;
-                4194304 ) NETMASK=10 ;;
-                * ) echo "INVALID NUMBER" ;;
-        esac
+    IP=`sed -n ${line}p ip_tmp.txt | awk '{print $1}'`
+    HOST=`sed -n ${line}p ip_tmp.txt | awk '{print $2}'`
+    NETMASK=0
+    case $HOST in
+        256 ) NETMASK=24 ;;
+        512 ) NETMASK=23 ;;
+        1024 ) NETMASK=22 ;;
+        2048 ) NETMASK=21 ;;
+        4096 ) NETMASK=20 ;;
+        8192 ) NETMASK=19 ;;
+        16384 ) NETMASK=18 ;;
+        32768 ) NETMASK=17 ;;
+        65536 ) NETMASK=16 ;;
+        131072 ) NETMASK=15 ;;
+        262144 ) NETMASK=14 ;;
+        524288 ) NETMASK=13 ;;
+        1048576 ) NETMASK=12 ;;
+        2097152 ) NETMASK=11 ;;
+        4194304 ) NETMASK=10 ;;
+        * ) echo "Invalid number" ;;
+    esac
+    if [ "$VERBOSE" = true ]; then 
         echo $IP/$NETMASK
-        echo $IP/$NETMASK >> results.txt
-        let line++
+    fi
+    echo $IP/$NETMASK >> results.txt
+    let line++
 done
 rm  ip_tmp.txt
