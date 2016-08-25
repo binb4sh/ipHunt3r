@@ -30,32 +30,94 @@ REGION_DIR=$CURRENT_DIR/region
 REGISTRY=apnic
 CC=CN
 
-getArgs
+###############################################################################
 
-if [[ grep $CC $REGION_DIR/RIPENCC.txt ]]; then
-        REGISTRY=ripencc
-elif [[ grep $CC $REGION_DIR/APNIC.txt ]]; then
-        REGISTRY=apnic
-elif [[ grep $CC $REGION_DIR/ARIN.txt ]]; then
-        REGISTRY=arin
-elif [[ grep $CC $REGION_DIR/LACNIC.txt ]]; then
-        REGISTRY=lacnic
-else [[ grep $CC $REGION_DIR/AFRINIC.txt ]]; then
-        REGISTRY=afrinic
+usage() {
+    echo -n "
+ Usage: sh ipHunter [OPTION]... 
+
+ Options:
+    -c     Country code, see \"doc/List_fo_country_codes.doc\"
+    -h     Display this help and exit
+    -u     Upadte regional internet registry data
+ 
+ Example: sh ipHunter -c CN 
+
+"
+    exit
+}
+
+updateData() {
+        wget AFRINIC -O $DATA_DIR/AFRINIC_latest.txt.tmp
+        mv $DATA_DIR/AFRINIC_latest.txt.tmp $DATA_DIR/AFRINIC_latest.txt
+        wget APNIC -O $DATA_DIR/APNIC_latest.txt.tmp
+        mv $DATA_DIR/APNIC_latest.txt.tmp $DATA_DIR/APNIC_latest.txt
+        wget ARIN -O $DATA_DIR/ARIN_latest.txt.tmp
+        mv $DATA_DIR/ARIN_latest.txt.tmp $DATA_DIR/ARIN_latest.txt
+        wget LACNIC -O $DATA_DIR/LACNIC_latest.txt.tpm
+        mv $DATA_DIR/LACNIC_latest.txt.tpm $DATA_DIR/LACNIC_latest.txt
+        wget RIPENCC -O $DATA_DIR/RIPENCC_latest.txt.tmp
+        mv $DATA_DIR/RIPENCC_latest.txt.tmp $DATA_DIR/RIPENCC_latest.txt
+        echo "All data is up-to-date!"
+        exit
+}
+
+###############################################################################
+
+
+# Get options
+while getopts "uhc:r:" arg
+do
+    case $arg in
+        h ) usage ;;
+        u ) updateData ;;
+        c ) CC=$OPTARG ;;
+        ? ) 
+            echo "
+ [*] Uknown argument"
+            usage ;;
+    esac
+done
+
+# Init varibles
+CC=`echo $CC | tr '[:lower:]' '[:upper:]'`
+if grep $CC $REGION_DIR/RIPENCC.txt > /dev/null
+then
+    REGISTRY=ripencc
+elif grep $CC $REGION_DIR/APNIC.txt > /dev/null
+then
+    REGISTRY=apnic
+elif grep $CC $REGION_DIR/ARIN.txt > /dev/null
+then
+    REGISTRY=arin
+elif grep $CC $REGION_DIR/LACNIC.txt > /dev/null
+then
+    REGISTRY=lacnic
+elif grep $CC $REGION_DIR/AFRINIC.txt > /dev/null
+then
+    REGISTRY=afrinic
 else
-        echo "UNKONWN COUNTRY!"
+    echo "[*] Uknown country code!"
+    echo "[*] Please check 'doc/List_fo_country_codes.doc'
+    "
+    exit
 fi
-
 
 # Get file
 DATAFILE=$DATA_DIR/AFRINIC_latest.txt
+if [[ ! -f $DATAFILE ]]; then
+    echo "[*] File not found: $DATAFILE "
+    echo "[*] Please update data with: 'sh ipHunter.sh -u'
+    "
+    exit
+fi
 case $REGISTRY in
         apnic ) DATAFILE=$DATA_DIR/AFRINIC_latest.txt ;;
         afrinic ) DATAFILE=$DATA_DIR/AFRINIC_latest.txt ;;
         arin ) DATAFILE=$DATA_DIR/AFRINIC_latest.txt ;;
         lacnic ) DATAFILE=$DATA_DIR/AFRINIC_latest.txt ;;
         ripencc ) DATAFILE=$DATA_DIR/AFRINIC_latest.txt ;;
-        * ) echo "INVALID REGISTRY" ;;
+        * ) echo "[*] Invalid registry"; exit ;;
 esac
 
 # filter CC IPs
@@ -90,48 +152,3 @@ while(($line<=$count));do
         let line++
 done
 rm  ip_tmp.txt
-
-usage() {
-    echo -n "sh ipHunter [OPTION]... 
-
-    Options:
-    -c     Country code, see \"doc/List_fo_country_codes.doc\"
-    -h     Display this help and exit
-    -v     Output version information and exit
-    -u     Upadte regional internet registry data
-"
-}
-
-getArgs() {
-    while [[ getopts "uhc:r:" arg ]]; do
-        case $arg in
-            h ) usage ;;
-            u ) updateData ;;
-            c ) CC=$OPTARG ;;
-            ? ) 
-                echo "Uknown argument: -$OPTARG"
-                usage ;;
-            : ) 
-                echo "Missing option argument for -$OPTARG"
-                usage ;;
-            * ) 
-                echo "Unimplemented option: -$OPTARG"
-                usage ;;
-        esac
-    done
-}
-
-updateData() {
-        wget AFRINIC -O $DATA_DIR/AFRINIC_latest.txt.tmp
-        mv $DATA_DIR/AFRINIC_latest.txt.tmp $DATA_DIR/AFRINIC_latest.txt
-        wget APNIC -O $DATA_DIR/APNIC_latest.txt.tmp
-        mv $DATA_DIR/APNIC_latest.txt.tmp $DATA_DIR/APNIC_latest.txt
-        wget ARIN -O $DATA_DIR/ARIN_latest.txt.tmp
-        mv $DATA_DIR/ARIN_latest.txt.tmp $DATA_DIR/ARIN_latest.txt
-        wget LACNIC -O $DATA_DIR/LACNIC_latest.txt.tpm
-        mv $DATA_DIR/LACNIC_latest.txt.tpm $DATA_DIR/LACNIC_latest.txt
-        wget RIPENCC -O $DATA_DIR/RIPENCC_latest.txt.tmp
-        mv $DATA_DIR/RIPENCC_latest.txt.tmp $DATA_DIR/RIPENCC_latest.txt
-        echo "All data is up-to-date!"
-        exit
-}
