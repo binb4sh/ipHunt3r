@@ -169,4 +169,6 @@ while(($line<=$count));do
     echo $IP/$NETMASK >> results.txt
     let line++
 done
-#rm  ip_tmp.txt
+rm  ip_tmp.txt
+echo "Done! Please check 'results.txt'"
+exit
