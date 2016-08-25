@@ -130,7 +130,9 @@ case $REGISTRY in
 esac
 
 # filter CC IPs
-echo "In progress ....."
+echo "Country code is $CC"
+echo "Registry is '$REGISTRY'"
+echo "Start filter IPs ..."
 grep "$REGISTRY|$CC|ipv4" $FILE | awk -F "|" '{print $4,$5}' > ip_tmp.txt
 
 count=`cat ip_tmp.txt | wc -l`
