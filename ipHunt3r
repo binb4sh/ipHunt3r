@@ -51,15 +51,22 @@ usage() {
 }
 
 updateData() {
-    wget $AFRINIC -O $DATA_DIR/AFRINIC_latest.txt.tmp
+    download_tool=wget
+    tool_opt='-O'
+    if ! hash wget 2>/dev/null; then
+        download_tool=curl
+        tool_opt='-o'
+    fi
+
+    $download_tool $AFRINIC $tool_opt $DATA_DIR/AFRINIC_latest.txt.tmp
     mv $DATA_DIR/AFRINIC_latest.txt.tmp $DATA_DIR/AFRINIC_latest.txt
-    wget $APNIC -O $DATA_DIR/APNIC_latest.txt.tmp
+    $download_tool $APNIC $tool_opt $DATA_DIR/APNIC_latest.txt.tmp
     mv $DATA_DIR/APNIC_latest.txt.tmp $DATA_DIR/APNIC_latest.txt
-    wget $ARIN -O $DATA_DIR/ARIN_latest.txt.tmp
+    $download_tool $ARIN $tool_opt $DATA_DIR/ARIN_latest.txt.tmp
     mv $DATA_DIR/ARIN_latest.txt.tmp $DATA_DIR/ARIN_latest.txt
-    wget $LACNIC -O $DATA_DIR/LACNIC_latest.txt.tpm
+    $download_tool $LACNIC tool_opt $DATA_DIR/LACNIC_latest.txt.tpm
     mv $DATA_DIR/LACNIC_latest.txt.tpm $DATA_DIR/LACNIC_latest.txt
-    wget $RIPENCC -O $DATA_DIR/RIPENCC_latest.txt.tmp
+    $download_tool $RIPENCC tool_opt $DATA_DIR/RIPENCC_latest.txt.tmp
     mv $DATA_DIR/RIPENCC_latest.txt.tmp $DATA_DIR/RIPENCC_latest.txt
     echo "All data is up-to-date!"
     exit
