@@ -31,6 +31,7 @@ Grab all the ip addresses of  any country's Internet, any regional Internet or t
 # Example
 ```
  sh ipHunt3r -v -c CN
+ After script done, Please check 'results.txt'
 ```
 # Version feature
     V1.0 
