@@ -45,6 +45,7 @@ usage() {
     -v     Verbose
  
  Example: sh ipHunt3r -c CN 
+ After script done, Please check results.txt
 
 "
     exit
