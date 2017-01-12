@@ -64,8 +64,8 @@ updateData() {
     mv $DATA_DIR/APNIC_latest.txt.tmp $DATA_DIR/APNIC_latest.txt
     $download_tool $ARIN $tool_opt $DATA_DIR/ARIN_latest.txt.tmp
     mv $DATA_DIR/ARIN_latest.txt.tmp $DATA_DIR/ARIN_latest.txt
-    $download_tool $LACNIC tool_opt $DATA_DIR/LACNIC_latest.txt.tpm
-    mv $DATA_DIR/LACNIC_latest.txt.tpm $DATA_DIR/LACNIC_latest.txt
+    $download_tool $LACNIC tool_opt $DATA_DIR/LACNIC_latest.txt.tmp
+    mv $DATA_DIR/LACNIC_latest.txt.tmp $DATA_DIR/LACNIC_latest.txt
     $download_tool $RIPENCC tool_opt $DATA_DIR/RIPENCC_latest.txt.tmp
     mv $DATA_DIR/RIPENCC_latest.txt.tmp $DATA_DIR/RIPENCC_latest.txt
     echo "All data is up-to-date!"
