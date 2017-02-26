@@ -12,7 +12,7 @@ $$/ $$$$$$$/  $$/   $$/  $$$$$$/  $$/   $$/    $$$$/   $$$$$$/  $$/
     $$ |                                                                  
     $$ |                                                                  
     $$/                                                                   
-                                                           By nullPoint3r
+                                                           By buffer0xff
 ```
 Grab all the ip addresses of  any country's Internet, any regional Internet or the entire Internet !
 # Usage
